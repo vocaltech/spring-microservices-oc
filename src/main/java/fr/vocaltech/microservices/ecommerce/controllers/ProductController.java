@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 @RestController
 public class ProductController {
     private static Logger log = LoggerFactory.getLogger(ProductController.class);
@@ -51,6 +53,18 @@ public class ProductController {
     @DeleteMapping("/Products/{id}")
     public void removeProduct(@PathVariable long id) {
         productRepository.deleteById(id);
+    }
+
+    @GetMapping(value = "/AdminProducts")
+    public HashMap<Product, Double> productMargin() {
+        HashMap<Product, Double> hm = new HashMap<>();
+        var products = productRepository.findAll();
+        products.forEach(product -> {
+            double marge = product.getPrice() - product.getBuyPrice();
+            log.info(String.format("%s: %f", product.toString(), marge));
+            hm.put(product, marge);
+        });
+        return hm;
     }
     private MappingJacksonValue applyFilter(Object object) {
         SimpleBeanPropertyFilter buyPriceFilter = SimpleBeanPropertyFilter.serializeAllExcept("buyPrice");
