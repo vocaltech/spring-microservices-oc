@@ -24,10 +24,10 @@ public class EcommerceApplication {
 		return args -> {
 			// save some products
 			List<Product> products = List.of(
-					new Product("Prod1", 369.0, 269),
-					new Product("Prod2", 3369.1, 3269),
-					new Product("Prod3", 3669.2, 3559)
-			);
+					new Product("Ordinateur portable" , 350, 120),
+					new Product("Aspirateur Robot" , 500, 200),
+					new Product("Table de Ping Pong" , 750, 400));
+
 			repository.saveAll(products);
 
 			// fetch all products
