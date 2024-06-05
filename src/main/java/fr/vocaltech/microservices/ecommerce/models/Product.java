@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@JsonFilter("dynamicFilter")
+//@JsonFilter("dynamicFilter")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
