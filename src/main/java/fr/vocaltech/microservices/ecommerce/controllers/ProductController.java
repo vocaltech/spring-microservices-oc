@@ -14,6 +14,7 @@ import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 public class ProductController {
@@ -65,6 +66,10 @@ public class ProductController {
             hm.put(product, marge);
         });
         return hm;
+    }
+    @GetMapping(value = "/SortProducts")
+    public List<Product> findAllSortByName() {
+        return productRepository.findAllByOrderByNameAsc();
     }
     private MappingJacksonValue applyFilter(Object object) {
         SimpleBeanPropertyFilter buyPriceFilter = SimpleBeanPropertyFilter.serializeAllExcept("buyPrice");
