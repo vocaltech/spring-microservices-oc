@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import fr.vocaltech.microservices.ecommerce.daos.ProductRepository;
 import fr.vocaltech.microservices.ecommerce.exceptions.ProductNotFoundException;
+import fr.vocaltech.microservices.ecommerce.exceptions.ProductPriceException;
 import fr.vocaltech.microservices.ecommerce.models.Product;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -43,7 +44,10 @@ public class ProductController {
         return applyFilter(products);
     }
     @PostMapping("/Products")
-    public void createProduct(@Valid @RequestBody Product product) {
+    public void createProduct(@RequestBody Product product) {
+        if (product.getPrice() == 0.0)
+            throw new ProductPriceException("Price must be greater than 0!");
+
         productRepository.save(product);
     }
     @PutMapping("/Products")
