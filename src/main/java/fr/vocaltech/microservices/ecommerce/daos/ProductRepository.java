@@ -9,4 +9,6 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     Product findById(long id);
     List<Product> findByPriceGreaterThan(double price);
     List<Product> findByBuyPriceGreaterThan(double price);
+
+    List<Product> findAllByOrderByNameAsc();
 }
